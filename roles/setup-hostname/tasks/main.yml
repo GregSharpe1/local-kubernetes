@@ -1,0 +1,9 @@
+---
+# tasks file for roles/setup-hostname
+
+- name: Replace the hostname string with variable configured in group_vars
+  replace:
+    path: /etc/hostname
+    regexp: '^raspberrypi'
+    replace: '{{ hostname }}'
+    backup: yes

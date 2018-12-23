@@ -1,0 +1,34 @@
+---
+
+# Start as the Pi user and enter a password on the command line
+- name: Make sure python minimal is installed for ansible
+  hosts: all
+  gather_facts: "False"
+  tasks:
+    - name: Install python for Ansible
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+      become: "True"
+      changed_when: "False"
+
+- name: Base installion for cluster
+  hosts: all
+  become: yes
+  roles:
+    - { role: roles/setup-hostname, tags: ['base', 'hostname'] }
+    - { role: roles/common, tags: ['base', 'common'] }
+    - { role: roles/users, tags: ['base', 'users'], list: "{{ users_system }}" }
+
+- name: Install Docker on cluster
+  hosts: all:!node01 # node01 is a rpi1 this installion method doesn't work on rpi1
+  become: yes
+  roles:
+    - { role: roles/ansible-role-docker, tags: ['base', 'docker'] }
+  vars:
+    - docker_pi_group_users:
+      - "pi"
+
+# - name: Starting master cluster configuration
+#   import_playbook: master.yml
+
+# - name: Starting node cluster configuration
+#   import_playbook: nodes.yml

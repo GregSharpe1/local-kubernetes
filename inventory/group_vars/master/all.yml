@@ -1,0 +1,3 @@
+---
+
+hostname: "master-{{ hostname_suffix }}"

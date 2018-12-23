@@ -1,0 +1,3 @@
+---
+
+hostname: "node01-{{ hostname_suffix }}"
