@@ -1,0 +1,5 @@
+---
+# vars file for roles/install-kubeadm
+
+kubeadm_packages:
+  - kubeadm
