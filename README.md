@@ -6,3 +6,23 @@
 
 * `local-kubenetes $ ansible-playbook plays/base.yml --inventory inventory/hosts -u pi -k -vvv` - Run the base play as the `remote_user` pi and ask for the user's password the first time, the base play well remove the dependancy on sudo password for ease of deployment.
 
+#### There is sensitive information containing passwords etc within the `inventory/group_vars/all.yml` for obvious reasons I don't want to display them, but they are required as part of this configuration. An example of the file is as follows
+
+			---
+
+			hostname_suffix: "pi-cluster"
+
+			users_system:
+			  - pi
+
+			user_users:
+			  - name: pi
+			    state: present
+			    password: "password generated using passlib python or [mkpasswd](https://serversforhackers.com/c/create-user-in-ansible)"
+			    sudo: custom
+			    sudo_custom:
+			    - name: pi
+			      nopasswd: yes
+			      command_line: ALL
+			    ssh_keys:
+			      - key: example ssh public key
