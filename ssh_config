@@ -1,0 +1,7 @@
+Host *
+  ConnectTimeout 60
+  ConnectionAttempts 3
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+  ForwardAgent yes
+  IdentityFile ~/.ssh/personal/local-kubenetes
