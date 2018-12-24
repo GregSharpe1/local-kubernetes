@@ -8,11 +8,13 @@
     owner: root
     group: root
     mode: 0755
+  register: cmdline
 
 - name: Reboot immediately if there was a change.
   shell: "sleep 5 && reboot"
   async: 1
   poll: 0
+  when: cmdline.changed
 
 - name: Wait for the reboot to complete if there was a change.
   wait_for_connection:
@@ -20,3 +22,4 @@
     sleep: 5
     delay: 5
     timeout: 300
+  when: cmdline.changed
