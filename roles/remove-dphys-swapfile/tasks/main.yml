@@ -1,0 +1,11 @@
+---
+# tasks file for roles/remove-dphys-swapfile
+
+- name: Register output of dphys
+  command: 'swapon --summary'
+  register: swapon_summary
+
+- name: Remove when swapon summary
+  include: remove.yml
+  when: swapon_summary.stdout.find("/var/swap") != -1 # hack check if the registered var contains /var/ (default)
+  

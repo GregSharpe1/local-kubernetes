@@ -1,0 +1,10 @@
+---
+
+- name: Remove dphys-swapfile
+  command: 'dphys-swapfile swapoff'
+
+- name: Unistall dphys-swapfile
+  command: 'dphys-swapfile uninstall'
+
+- name: Remove from startup
+  command: 'update-rc.d dphys-swapfile remove'
