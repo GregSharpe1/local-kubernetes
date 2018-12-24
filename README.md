@@ -26,3 +26,6 @@
 			      command_line: ALL
 			    ssh_keys:
 			      - key: example ssh public key
+
+
+#### Much of this installion is following from [here](https://gist.github.com/alexellis/fdbc90de7691a1b9edb545c17da2d975), I've just automated the process

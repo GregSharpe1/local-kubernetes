@@ -1,0 +1,10 @@
+---
+# tasks file for roles/update-cmdline
+
+- name: Copy and replace the /boot/cmdline.txt file
+  template:
+    src: cmdline.txt.j2
+    dest: /boot/cmdline.txt
+    owner: root
+    group: root
+    mode: 0755
