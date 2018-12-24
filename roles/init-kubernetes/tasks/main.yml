@@ -1,0 +1,27 @@
+---
+# tasks file for roles/init-kubernetes
+
+# Bit of a hack but, if the config file exists I'm assuming that init has been run
+- name: Create the required config directory
+  file:
+    path: "/home/{{ kubernetes_user }}/.kube"
+    state: directory
+    owner: "{{ kubernetes_user }}"
+    group: "{{ kubernetes_user }}"
+    mode: 0755
+  register: kube_directory
+
+# Only to be run on the Master node once!!
+- name: Initialise the master node
+  become: yes
+  command: 'kubeadm init --token-ttl=0 --pod-network-cidr={{ pod_network_cidr }} --apiserver-advertise-address=ansible_default_ipv4.address'
+  when: kube_directory.changed
+
+- name: Copy the kubernetes config to new directory
+  copy:
+    src: "/etc/kubernetes/admin.conf"
+    dest: "/home/{{ kubernetes_user }}/.kube/config"
+    owner: "{{ kubernetes_user }}"
+    group: "{{ kubernetes_user }}"
+    mode: 0755
+    remote_src: True

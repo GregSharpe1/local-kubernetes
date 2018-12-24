@@ -1,0 +1,5 @@
+---
+# defaults file for roles/init-kubernetes
+
+pod_network_cidr: 10.244.0.0/16
+kubernetes_user: "pi"

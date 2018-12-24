@@ -1,1 +1,7 @@
 ---
+
+- name: Kube initialise
+  become: yes
+  hosts: master
+  roles:
+    - { role: roles/init-kubernetes, tags: ['master', 'init-kubernetes', 'initialise'] }
