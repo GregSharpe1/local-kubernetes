@@ -27,8 +27,14 @@
     - docker_pi_group_users:
       - "pi"
 
-# - name: Starting master cluster configuration
-#   import_playbook: master.yml
+- name: Remove dphys as pre-requirements for kubernetes install
+  become: yes
+  hosts: all
+  roles:
+    - { role: roles/remove-dphys-swapfile, tags: ['pre-reqs', 'dphys-swapfile', 'kubernetes'] }
+
+- name: Starting master cluster configuration
+  import_playbook: master.yml
 
 # - name: Starting node cluster configuration
 #   import_playbook: nodes.yml
