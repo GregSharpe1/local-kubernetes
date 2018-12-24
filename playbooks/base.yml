@@ -18,23 +18,5 @@
     - { role: roles/common, tags: ['base', 'common'] }
     - { role: roles/users, tags: ['base', 'users'], list: "{{ users_system }}" }
 
-- name: Install Docker on cluster
-  hosts: all:!node01 # node01 is a rpi1 this installion method doesn't work on rpi1
-  become: yes
-  roles:
-    - { role: roles/ansible-role-docker, tags: ['base', 'docker'] }
-  vars:
-    - docker_pi_group_users:
-      - "pi"
-
-- name: Remove dphys as pre-requirements for kubernetes install
-  become: yes
-  hosts: all
-  roles:
-    - { role: roles/remove-dphys-swapfile, tags: ['pre-reqs', 'dphys-swapfile', 'kubernetes'] }
-
-- name: Starting master cluster configuration
-  import_playbook: master.yml
-
-# - name: Starting node cluster configuration
-#   import_playbook: nodes.yml
+- name: Starting kubernetes configuration
+  import_playbook: kubernetes.yml
