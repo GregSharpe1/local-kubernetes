@@ -1,7 +1,1 @@
 ---
-
-- name: Install kubeadm
-  hosts: master
-  become: yes
-  roles:
-    - { role: roles/install-kubeadm, tags: ['master', 'kubeadm'] }

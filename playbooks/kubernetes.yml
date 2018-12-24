@@ -17,6 +17,12 @@
     - { role: roles/remove-dphys-swapfile, tags: ['pre-reqs', 'dphys-swapfile', 'kubernetes'] }
     - { role: roles/update-cmdline, tags: ['pre-reqs', 'update-cmdline', 'kubernetes'] }
 
+- name: Install kubeadm
+  hosts: all:!node01 # Remove later on
+  become: yes
+  roles:
+    - { role: roles/install-kubeadm, tags: ['master', 'kubeadm'] }
+
 - name: Starting master cluster configuration
   import_playbook: master.yml
 
