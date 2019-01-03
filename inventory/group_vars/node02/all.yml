@@ -1,3 +1,3 @@
 ---
 
-hostname: "node01-{{ hostname_suffix }}"
+hostname: "node02-{{ hostname_suffix }}"
